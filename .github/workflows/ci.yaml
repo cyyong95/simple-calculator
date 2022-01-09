@@ -17,8 +17,8 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build ./Calculator/CalculatorV2.csproj -c Release --no-restore
+        run: dotnet build -c Release --no-restore
       
       - name: Test
-        run: dotnet test ./CalculatorTests/CalculatorV2Tests -c Release --no-restore
+        run: dotnet test -c Release --no-restore
 
