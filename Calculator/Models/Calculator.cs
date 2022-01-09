@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using CalculatorV2.Exceptions;
 
-namespace CalculatorV2
+namespace CalculatorV2.Models
 {
     public interface ICalculator
     {
@@ -22,6 +23,8 @@ namespace CalculatorV2
 
         public double Calculate(string sum)
         {
+            Validate(sum);
+
             return CalculateRecursive(sum.Split(STRING_SEPARATOR));
         }
 
@@ -147,6 +150,16 @@ namespace CalculatorV2
             return false;
         }
 
+        private bool IsCloseParenthesis(string character)
+        {
+            if (character == OPERATOR_CLOSE_PARENTHESIS)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         private int GetLastIndexOf(string @operator, string[] sum)
         {
             var _operatorIndex = -1;
@@ -208,6 +221,52 @@ namespace CalculatorV2
             }
 
             return _sumSubstring;
+        }
+
+        private void Validate(string sum)
+        {
+            var _sumSplit = sum.Split(STRING_SEPARATOR);
+
+            IsExistAdditionalWhitespaceBetweenCharacters(_sumSplit);
+
+            IsExistAdditionalParenthesis(_sumSplit);
+        }
+
+        private void IsExistAdditionalWhitespaceBetweenCharacters(string[] characters)
+        {
+            foreach (var character in characters)
+            {
+                if (string.IsNullOrWhiteSpace(character))
+                {
+                    throw new AdditionalWhitespaceBetweenCharactersException(
+                        "There exist additional whitespace between the characters in the expression");
+                }
+            }
+        }
+
+        private void IsExistAdditionalParenthesis(string[] characters)
+        {
+            int _openParenthesis = 0;
+            int _closeParenthesis = 0;
+
+            foreach (var character in characters)
+            {
+                if (IsOpenParenthesis(character))
+                {
+                    _openParenthesis += 1;
+                }
+
+                if (IsCloseParenthesis(character))
+                {
+                    _closeParenthesis += 1;
+                }
+            }
+
+            if (_openParenthesis != _closeParenthesis)
+            {
+                throw new UnevenParenthesisException(
+                    $"There exist {_openParenthesis} number of {"'{'"} and {_closeParenthesis} number of {"'}'"} parenthesis");
+            }
         }
     }
 }

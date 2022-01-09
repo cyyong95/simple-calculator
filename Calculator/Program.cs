@@ -1,4 +1,5 @@
 ﻿using System;
+using CalculatorV2.Models;
 
 namespace CalculatorV2
 {
@@ -8,7 +9,14 @@ namespace CalculatorV2
         {
             var _calculator = new Calculator();
 
-            Console.WriteLine(_calculator.Calculate("1 + 1"));
+            try
+            {
+                Console.WriteLine(_calculator.Calculate("1 + 1 "));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex}");
+            }
         }
     }
 }

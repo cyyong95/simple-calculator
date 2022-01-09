@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using CalculatorV2;
+using CalculatorV2.Models;
 
 namespace CalculatorV2Tests
 {
