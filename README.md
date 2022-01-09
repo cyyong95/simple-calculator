@@ -1,3 +1,5 @@
+[![Calculator Build](https://github.com/cyyong95/Calculator/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/cyyong95/Calculator/actions/workflows/ci.yaml)
+
 # Calculator
 
 ## This is a simple calculator application
