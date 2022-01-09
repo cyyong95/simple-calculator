@@ -1,0 +1,24 @@
+name: Calculator Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup .NET sdk
+        uses: actions/setup-dotnet@v1.9.0
+        with:
+          dotnet-version: '5.0.x'
+
+      - name: Restore 
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build ./Calculator/CalculatorV2.csproj -c Release --no-restore
+      
+      - name: Test
+        run: dotnet test ./CalculatorTests/CalculatorV2Tests -c Release --no-restore
+
